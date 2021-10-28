@@ -7,6 +7,9 @@
       :content="bookable1.content"
       :price="1200"
     ></bookable-list-item>
+    <div v-else>
+        <h2>nothing to show</h2>
+    </div>
   </div>
 </template>
 

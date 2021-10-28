@@ -2109,6 +2109,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 //Register the component locally
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -38058,7 +38061,7 @@ var render = function () {
               price: 1200,
             },
           })
-        : _vm._e(),
+        : _c("div", [_c("h2", [_vm._v("nothing to show")])]),
     ],
     1
   )
