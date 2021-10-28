@@ -1,8 +1,8 @@
 <!--responsible of displaying one object of all the bookable list that the customer can buy-->
 <template>
   <div>
-    <h1>Title: {{ title }}</h1>
-    <p>Content {{ content }}</p>
+    <h1>{{ title }}</h1>
+    <p>{{ content }}</p>
     <p>Price {{ price }}</p>
   </div>
 </template>

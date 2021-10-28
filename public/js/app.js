@@ -2111,10 +2111,33 @@ __webpack_require__.r(__webpack_exports__);
 //Register the component locally
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      bookable1: {
+        title: "title 1",
+        content: "content 1"
+      },
+      bookable2: {
+        title: "title 2",
+        content: "content 2"
+      }
+    };
+  },
   components: {
     //Like this we can set the first property as we want and then we can use it above in kebab or camel case
     BookableListItem: _BookableListItem_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
+  },
+  created: function created() {
+    var _this = this;
+
+    console.log(this.bookable1);
+    console.log(this.bookable2);
+    setTimeout(function () {
+      _this.bookable1.title = "title changed";
+      _this.bookable1.content = "content changed";
+    }, 5000);
+  } //set time out to simulate the api request
+
 });
 
 /***/ }),
@@ -37999,9 +38022,9 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", [_vm._v("Title: " + _vm._s(_vm.title))]),
+    _c("h1", [_vm._v(_vm._s(_vm.title))]),
     _vm._v(" "),
-    _c("p", [_vm._v("Content " + _vm._s(_vm.content))]),
+    _c("p", [_vm._v(_vm._s(_vm.content))]),
     _vm._v(" "),
     _c("p", [_vm._v("Price " + _vm._s(_vm.price))]),
   ])
@@ -38034,8 +38057,8 @@ var render = function () {
     [
       _c("bookable-list-item", {
         attrs: {
-          title: "Vila zwina",
-          content: "vila zwina bzaaaf juste khass wa9t bach nchriha",
+          title: _vm.bookable1.title,
+          content: _vm.bookable1.content,
           price: 1200,
         },
       }),

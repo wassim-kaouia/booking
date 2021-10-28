@@ -22,6 +22,5 @@ const router = new VueRouter({
     mode:'history'
   })
 
-
 //export the vue-router to default so that the default can knowwhat route to choose
 export default router;
