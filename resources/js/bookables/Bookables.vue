@@ -2,6 +2,7 @@
 <template>
   <div>
     <bookable-list-item
+      v-if="bookable1 != null"
       :title="bookable1.title"
       :content="bookable1.content"
       :price="1200"
@@ -16,14 +17,7 @@ import BookableListItem from "./BookableListItem.vue";
 export default {
   data() {
     return {
-      bookable1: {
-        title: "title 1",
-        content: "content 1",
-      },
-      bookable2: {
-        title: "title 2",
-        content: "content 2",
-      },
+      bookable1: null,
     };
   },
   components: {
@@ -32,10 +26,11 @@ export default {
   },
   created() {
     console.log(this.bookable1);
-    console.log(this.bookable2);
     setTimeout(() => {
-      this.bookable1.title = "title changed";
-      this.bookable1.content = "content changed";
+      this.bookable1 = {
+           title : "title changed",
+           content : "content changed",
+      };
     }, 5000);
   },
   //set time out to simulate the api request

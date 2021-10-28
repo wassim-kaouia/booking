@@ -3,7 +3,7 @@
   <div>
     <h1>{{ title }}</h1>
     <p>{{ content }}</p>
-    <p>Price {{ price }}</p>
+    <p>{{ price }}</p>
   </div>
 </template>
 

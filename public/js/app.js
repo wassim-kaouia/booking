@@ -2108,19 +2108,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 //Register the component locally
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      bookable1: {
-        title: "title 1",
-        content: "content 1"
-      },
-      bookable2: {
-        title: "title 2",
-        content: "content 2"
-      }
+      bookable1: null
     };
   },
   components: {
@@ -2131,10 +2125,11 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     console.log(this.bookable1);
-    console.log(this.bookable2);
     setTimeout(function () {
-      _this.bookable1.title = "title changed";
-      _this.bookable1.content = "content changed";
+      _this.bookable1 = {
+        title: "title changed",
+        content: "content changed"
+      };
     }, 5000);
   } //set time out to simulate the api request
 
@@ -38026,7 +38021,7 @@ var render = function () {
     _vm._v(" "),
     _c("p", [_vm._v(_vm._s(_vm.content))]),
     _vm._v(" "),
-    _c("p", [_vm._v("Price " + _vm._s(_vm.price))]),
+    _c("p", [_vm._v(_vm._s(_vm.price))]),
   ])
 }
 var staticRenderFns = []
@@ -38055,13 +38050,15 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("bookable-list-item", {
-        attrs: {
-          title: _vm.bookable1.title,
-          content: _vm.bookable1.content,
-          price: 1200,
-        },
-      }),
+      _vm.bookable1 != null
+        ? _c("bookable-list-item", {
+            attrs: {
+              title: _vm.bookable1.title,
+              content: _vm.bookable1.content,
+              price: 1200,
+            },
+          })
+        : _vm._e(),
     ],
     1
   )
