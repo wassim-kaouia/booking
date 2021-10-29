@@ -2070,15 +2070,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      bookable: null
+      bookable: null,
+      loading: false
     };
   },
   created: function created() {
-    console.log(this.$route.params.id);
-    axios.get("/api/bookables/${this.$route.params.id}").then(function (response) {});
+    var _this = this;
+
+    console.log("start fetching one bookable by ID");
+    this.loading = true;
+    var req = axios.get("/api/bookables/" + this.$route.params.id).then(function (response) {
+      _this.bookable = response.data;
+      _this.loading = false;
+    });
   }
 });
 
@@ -2105,8 +2124,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    id: Number,
     title: String,
     content: String,
     price: Number
@@ -2147,6 +2169,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 //Register the component locally
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2164,14 +2190,13 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.loading = true;
-    console.log('Start Api Fetching ...');
-    var request = axios.get('/api/bookables').then(function (response) {
+    console.log("Start Api Fetching ...");
+    var request = axios.get("/api/bookables").then(function (response) {
       _this.bookables = response.data;
       _this.loading = false;
     });
     console.log(request);
-  } //set time out to simulate the api request
-
+  }
 });
 
 /***/ }),
@@ -37942,7 +37967,21 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("xxxxxxxx")])
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _vm.loading
+          ? _c("div", [_c("h1", [_vm._v("Loading Bookable ...")])])
+          : _c("div", [
+              _c("h3", [_vm._v(_vm._s(_vm.bookable.title))]),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.bookable.description))]),
+            ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [_vm._v("Availability Section")]),
+    ]),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37968,11 +38007,20 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card w-100" }, [
-    _c("div", { staticClass: "card-body" }, [
-      _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.title))]),
-      _vm._v(" "),
-      _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.content))]),
-    ]),
+    _c(
+      "div",
+      { staticClass: "card-body" },
+      [
+        _c(
+          "router-link",
+          { attrs: { to: { name: "bookable", params: { id: _vm.id } } } },
+          [_c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.title))])]
+        ),
+        _vm._v(" "),
+        _c("p", { staticClass: "card-text" }, [_vm._v(_vm._s(_vm.content))]),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = []
@@ -38001,7 +38049,7 @@ var render = function () {
   return _c("div", { staticClass: "container" }, [
     _vm.loading
       ? _c("div", { staticClass: "row" }, [
-          _c("h5", [_vm._v("Loading Bookings ...")]),
+          _c("h5", [_vm._v("Loading Bookings...")]),
         ])
       : _c("div", [
           _c(
@@ -38017,6 +38065,7 @@ var render = function () {
                 [
                   _c("bookable-list-item", {
                     attrs: {
+                      id: bookable.id,
                       title: bookable.title,
                       content: bookable.description,
                       price: 1200,

@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <div class="row" v-if="loading">
-      <h5>Loading Bookings ...</h5>
+      <h5>Loading Bookings...</h5>
     </div>
     <div v-else>
       <div class="row">
@@ -12,6 +12,7 @@
           class="col-md-4 p-2 d-flex align-items-stretch"
         >
           <bookable-list-item
+            :id="bookable.id"
             :title="bookable.title"
             :content="bookable.description"
             :price="1200"
@@ -37,7 +38,7 @@ export default {
   },
   created() {
     this.loading = true;
-    console.log("Start Api Fetching ... now");
+    console.log("Start Api Fetching ...");
     const request = axios.get("/api/bookables").then((response) => {
       this.bookables = response.data;
       this.loading = false;
