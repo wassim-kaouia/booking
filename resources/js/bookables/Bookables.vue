@@ -6,10 +6,10 @@
     </div>
     <div v-else>
        <div class="row">
-      <div v-for="(bookable,index) in bookables" :key="'bookable'+index" class="col-md-4 p-2">
+      <div v-for="(bookable,index) in bookables" :key="'bookable'+index" class="col-md-4 p-2 d-flex align-items-stretch">
          <bookable-list-item
             :title="bookable.title"
-            :content="bookable.content"
+            :content="bookable.description"
             :price="1200"
           ></bookable-list-item>
       </div>
@@ -33,45 +33,14 @@ export default {
     BookableListItem: BookableListItem,
   },
   created() {
-    console.log(this.bookable1);
-    setTimeout(() => {
-      this.bookables = [
-        {
-          title: "title changed1",
-          content: "content changed",
-        },
-        {
-          title: "title changed2",
-          content: "content changed",
-        },
-        {
-          title: "title change3d",
-          content: "content changed",
-        },
-        {
-          title: "title changed4",
-          content: "content changed",
-        },
-        {
-          title: "title changed1",
-          content: "content changed",
-        },
-        {
-          title: "title changed2",
-          content: "content changed",
-        },
-        {
-          title: "title change3d",
-          content: "content changed",
-        },
-        {
-          title: "title changed4",
-          content: "content changed",
-        },
-      ];
-      this.loading = false;
-    }, 3000);
     this.loading = true;
+    console.log('Start Api Fetching ...');
+    const request = axios.get('/api/bookables').then(response => {
+       this.bookables = response.data;
+       this.loading = false;
+    });
+    console.log(request);
+    
   },
   //set time out to simulate the api request
 };

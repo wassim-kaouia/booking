@@ -2133,36 +2133,13 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    console.log(this.bookable1);
-    setTimeout(function () {
-      _this.bookables = [{
-        title: "title changed1",
-        content: "content changed"
-      }, {
-        title: "title changed2",
-        content: "content changed"
-      }, {
-        title: "title change3d",
-        content: "content changed"
-      }, {
-        title: "title changed4",
-        content: "content changed"
-      }, {
-        title: "title changed1",
-        content: "content changed"
-      }, {
-        title: "title changed2",
-        content: "content changed"
-      }, {
-        title: "title change3d",
-        content: "content changed"
-      }, {
-        title: "title changed4",
-        content: "content changed"
-      }];
-      _this.loading = false;
-    }, 3000);
     this.loading = true;
+    console.log('Start Api Fetching ...');
+    var request = axios.get('/api/bookables').then(function (response) {
+      _this.bookables = response.data;
+      _this.loading = false;
+    });
+    console.log(request);
   } //set time out to simulate the api request
 
 });
@@ -37966,7 +37943,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "card w-100" }, [
     _c("div", { staticClass: "card-body" }, [
       _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.title))]),
       _vm._v(" "),
@@ -38009,12 +37986,15 @@ var render = function () {
             _vm._l(_vm.bookables, function (bookable, index) {
               return _c(
                 "div",
-                { key: "bookable" + index, staticClass: "col-md-4 p-2" },
+                {
+                  key: "bookable" + index,
+                  staticClass: "col-md-4 p-2 d-flex align-items-stretch",
+                },
                 [
                   _c("bookable-list-item", {
                     attrs: {
                       title: bookable.title,
-                      content: bookable.content,
+                      content: bookable.description,
                       price: 1200,
                     },
                   }),
