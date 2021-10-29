@@ -10,4 +10,5 @@ class Bookable extends Model
     use HasFactory;
 
     protected $guarded = [];
+    
 }

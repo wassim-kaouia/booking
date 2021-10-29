@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar bg-white border-bottom navbar-light">
       <router-link class="navbar-brand mr-auto"  v-bind:to="{ name: 'bookables' }">BoomVacance Draft</router-link>
-      <router-link class="navbar navbar-button" :to="{ name: 'second' }">Second Page</router-link>
+      <router-link class="navbar navbar-button" :to="{ name: 'bookables'}">Second Page</router-link>
     </nav>
 
     <div class="container pl-4 pr-4 mt-4 mb-2">
