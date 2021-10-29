@@ -6,9 +6,9 @@ import Bookables from "./bookables/Bookables";
 
 const routes = [
     {
-        path: "/first",
-        component: ExampleComponent,
-        name:'first'
+        path: "/",
+        component: Bookables,
+        name:'bookables'
     },
     {
         path: "/second",

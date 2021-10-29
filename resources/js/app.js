@@ -3,6 +3,7 @@ import router from "./routes";
 import VueRouter from "vue-router";
 import Vue from "vue";
 
+
 //import the local vue
 import Index from "./Index";
 

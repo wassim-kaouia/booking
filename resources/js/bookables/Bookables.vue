@@ -1,18 +1,22 @@
 <!--responsible of all the bookables that the customers can buy-->
 <template>
-  <div>
-    <bookable-list-item
-      v-if="bookable1 != null"
-      :title="bookable1.title"
-      :content="bookable1.content"
-      :price="1200"
-    ></bookable-list-item>
+  <div class="container">
+    <div class="row" v-if="loading">
+      <h5>Loading Bookings ...</h5>
+    </div>
     <div v-else>
-        <h2>nothing to show</h2>
+       <div class="row">
+      <div v-for="(bookable,index) in bookables" :key="'bookable'+index" class="col-md-4 p-2">
+         <bookable-list-item
+            :title="bookable.title"
+            :content="bookable.content"
+            :price="1200"
+          ></bookable-list-item>
+      </div>
+    </div>
     </div>
   </div>
 </template>
-
 
 <script>
 //Register the component locally
@@ -20,7 +24,8 @@ import BookableListItem from "./BookableListItem.vue";
 export default {
   data() {
     return {
-      bookable1: null,
+      loading: false,
+      bookables: null,
     };
   },
   components: {
@@ -30,11 +35,43 @@ export default {
   created() {
     console.log(this.bookable1);
     setTimeout(() => {
-      this.bookable1 = {
-           title : "title changed",
-           content : "content changed",
-      };
-    }, 5000);
+      this.bookables = [
+        {
+          title: "title changed1",
+          content: "content changed",
+        },
+        {
+          title: "title changed2",
+          content: "content changed",
+        },
+        {
+          title: "title change3d",
+          content: "content changed",
+        },
+        {
+          title: "title changed4",
+          content: "content changed",
+        },
+        {
+          title: "title changed1",
+          content: "content changed",
+        },
+        {
+          title: "title changed2",
+          content: "content changed",
+        },
+        {
+          title: "title change3d",
+          content: "content changed",
+        },
+        {
+          title: "title changed4",
+          content: "content changed",
+        },
+      ];
+      this.loading = false;
+    }, 3000);
+    this.loading = true;
   },
   //set time out to simulate the api request
 };

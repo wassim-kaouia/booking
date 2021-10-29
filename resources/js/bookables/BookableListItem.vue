@@ -1,10 +1,11 @@
 <!--responsible of displaying one object of all the bookable list that the customer can buy-->
 <template>
-  <div>
-    <h1>{{ title }}</h1>
-    <p>{{ content }}</p>
-    <p>{{ price }}</p>
-  </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{title}}</h5>
+            <p class="card-text">{{content}}</p>
+        </div>
+    </div>
 </template>
 
 <script>
