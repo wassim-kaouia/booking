@@ -2091,25 +2091,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       from: null,
       to: null,
-      loading: false
+      loading: false,
+      availability: null,
+      errors: null,
+      status: null
     };
+  },
+  computed: {
+    hasErrors: function hasErrors() {
+      return this.status == 422 && this.errors != null;
+    },
+    hasAvailability: function hasAvailability() {
+      return this.status == 200;
+    },
+    hasNoAvailability: function hasNoAvailability() {
+      return this.status == 400;
+    }
   },
   methods: {
     //here we call endpoints to check about the availability - API Calls using axios
     check: function check() {
-      console.log('Fetching Api to bring Availability ...');
+      var _this = this;
+
+      console.log("Fetching Api to bring Availability...");
       this.loading = true;
-      axios.get('/api/bookables/' + this.$route.params.id + '/availability?from=' + this.from + '&to=' + this.to).then(function (response) {
-        console.log(response);
-      })["catch"](function (response) {
-        console.log(response);
+      this.errors = null;
+      axios.get("/api/bookables/" + this.$route.params.id + "/availability?from=" + this.from + "&to=" + this.to).then(function (response) {
+        _this.status = response.status;
+        console.log(_this.status);
+      })["catch"](function (error) {
+        console.log(error.response.data);
+
+        if (422 == error.response.status) {
+          _this.errors = error.response.data.errors;
+        }
+
+        _this.status = error.response.status;
+      }).then(function () {
+        return _this.loading = false;
       });
-      this.loading = false;
+    },
+    errorFor: function errorFor(field) {
+      return this.hasErrors && this.errors[field] ? this.errors[field] : null;
     }
   }
 });
@@ -6768,7 +6830,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nlabel[data-v-39d99139] {\n    font-size:  0.7rem;\n    color:gray;\n    text-transform: uppercase;\n    font-weight: bolder;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nlabel[data-v-39d99139] {\r\n  font-size: 0.7rem;\r\n  color: gray;\r\n  text-transform: uppercase;\r\n  font-weight: bolder;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38534,79 +38596,107 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("h6", { staticClass: "text-uppercase font-weight-bolder text-muted" }, [
-      _vm._v("Check Availability"),
+      _vm._v("\n    Check Availability\n  "),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", { attrs: { for: "from" } }, [_vm._v("Arrival:")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.from,
-              expression: "from",
+      _c(
+        "div",
+        { staticClass: "form-group col-md-6" },
+        [
+          _c("label", { attrs: { for: "from" } }, [_vm._v("Arrival:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.from,
+                expression: "from",
+              },
+            ],
+            staticClass: "form-control form-control-sm",
+            class: [{ "is-invalid": this.errorFor("from") }],
+            attrs: { type: "text", name: "from", placeholder: "start date" },
+            domProps: { value: _vm.from },
+            on: {
+              keyup: function ($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.check.apply(null, arguments)
+              },
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.from = $event.target.value
+              },
             },
-          ],
-          staticClass: "form-control form-control-sm",
-          attrs: { type: "text", name: "from", placeholder: "start date" },
-          domProps: { value: _vm.from },
-          on: {
-            keyup: function ($event) {
-              if (
-                !$event.type.indexOf("key") &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
-              }
-              return _vm.check.apply(null, arguments)
-            },
-            input: function ($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.from = $event.target.value
-            },
-          },
-        }),
-      ]),
+          }),
+          _vm._v(" "),
+          _vm._l(this.errorFor("from"), function (error, index) {
+            return _c(
+              "div",
+              { key: "from" + index, staticClass: "invalid-feedback" },
+              [_vm._v(_vm._s(error))]
+            )
+          }),
+        ],
+        2
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", { attrs: { for: "to" } }, [_vm._v("Departure:")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.to,
-              expression: "to",
+      _c(
+        "div",
+        { staticClass: "form-group col-md-6" },
+        [
+          _c("label", { attrs: { for: "to" } }, [_vm._v("Departure:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.to,
+                expression: "to",
+              },
+            ],
+            staticClass: "form-control form-control-sm",
+            class: [{ "is-invalid": this.errorFor("to") }],
+            attrs: { type: "text", name: "to", placeholder: "end date" },
+            domProps: { value: _vm.to },
+            on: {
+              keyup: function ($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.check.apply(null, arguments)
+              },
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.to = $event.target.value
+              },
             },
-          ],
-          staticClass: "form-control form-control-sm",
-          attrs: { type: "text", name: "to", placeholder: "end date" },
-          domProps: { value: _vm.to },
-          on: {
-            keyup: function ($event) {
-              if (
-                !$event.type.indexOf("key") &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
-              }
-              return _vm.check.apply(null, arguments)
-            },
-            input: function ($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.to = $event.target.value
-            },
-          },
-        }),
-      ]),
+          }),
+          _vm._v(" "),
+          _vm._l(this.errorFor("to"), function (error, index) {
+            return _c(
+              "div",
+              { key: "to" + index, staticClass: "invalid-feedback" },
+              [_vm._v(_vm._s(error))]
+            )
+          }),
+        ],
+        2
+      ),
     ]),
     _vm._v(" "),
     _c(
@@ -38616,7 +38706,7 @@ var render = function () {
         attrs: { disabled: _vm.loading },
         on: { click: _vm.check },
       },
-      [_vm._v("Find Bookings")]
+      [_vm._v("\n    Find Bookings\n  ")]
     ),
   ])
 }
