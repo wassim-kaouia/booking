@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Bookable;
+use Illuminate\Database\Eloquent\Builder;
 
 class Booking extends Model
 {
@@ -14,5 +15,12 @@ class Booking extends Model
     
     public function bookable(){
         return $this->belongsTo(Bookable::class);
+    }
+
+
+    //create a local scope query
+    public function scopeBetweenDates(Builder $query,$from,$to){
+        return $query->where('to','>=',$from)
+                ->where('from','<=',$to);
     }
 }

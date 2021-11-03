@@ -11,7 +11,7 @@
                 <input v-model="to" @keyup.enter="check" type="text" name="to" class="form-control form-control-sm" placeholder="end date">
             </div>
         </div>
-        <button @click="check" class="btn btn-secondary btn-block">Find Bookings</button>
+        <button @click="check" class="btn btn-secondary btn-block" :disabled="loading">Find Bookings</button>
     </div>
 </template>
 
@@ -30,13 +30,21 @@ export default {
         return {
             from:null,
             to:null,
+            loading : false,
         }
     },
     methods:{
         //here we call endpoints to check about the availability - API Calls using axios
         check(){
-            
-            console.log('heho');
+            console.log('Fetching Api to bring Availability ...');
+            this.loading = true
+            axios.get('/api/bookables/'+this.$route.params.id+'/availability?from='+this.from+'&to='+this.to)
+            .then((response) => {
+                console.log(response);
+            }).catch((response) => {
+                console.log(response);
+            });
+            this.loading = false;
         }
     },
 }

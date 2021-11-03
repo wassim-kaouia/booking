@@ -2095,12 +2095,21 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       from: null,
-      to: null
+      to: null,
+      loading: false
     };
   },
   methods: {
+    //here we call endpoints to check about the availability - API Calls using axios
     check: function check() {
-      console.log('heho');
+      console.log('Fetching Api to bring Availability ...');
+      this.loading = true;
+      axios.get('/api/bookables/' + this.$route.params.id + '/availability?from=' + this.from + '&to=' + this.to).then(function (response) {
+        console.log(response);
+      })["catch"](function (response) {
+        console.log(response);
+      });
+      this.loading = false;
     }
   }
 });
@@ -38602,7 +38611,11 @@ var render = function () {
     _vm._v(" "),
     _c(
       "button",
-      { staticClass: "btn btn-secondary btn-block", on: { click: _vm.check } },
+      {
+        staticClass: "btn btn-secondary btn-block",
+        attrs: { disabled: _vm.loading },
+        on: { click: _vm.check },
+      },
       [_vm._v("Find Bookings")]
     ),
   ])

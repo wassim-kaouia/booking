@@ -15,5 +15,10 @@ class Bookable extends Model
     public function bookings(){
         return $this->hasMany(Booking::class);
     }
+
+    // to make the scope request more readable i put this boolean function inside the bookable model to check boolean availability
+    public function availableFor($from,$to){
+        return $this->bookings()->betweenDates($from,$to)->count() == 0 ? false : true;
+    }
     
 }
