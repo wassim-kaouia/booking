@@ -11,10 +11,12 @@ use Illuminate\Http\Request;
 class BookableController extends Controller
 {
     public function index(){
-        return new BookableIndexResource(Bookable::all());
+        return BookableIndexResource::collection(
+            Bookable::all()
+        );
     }
 
-    public function show(Request $request, $bookableId){
+    public function show($bookableId){
         return new BookableShowResource(Bookable::findOrFail($bookableId));
     }
 }

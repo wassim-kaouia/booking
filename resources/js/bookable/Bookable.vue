@@ -10,13 +10,17 @@
           <p>{{ bookable.description }}</p>
         </div>
       </div>
-      <div class="col-md-4">Availability Section</div>
+      <div class="col-md-4">
+          <availability></availability>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Availability from './Availability.vue';
 export default {
+  components: { Availability },
   data() {
     return {
       bookable: null,

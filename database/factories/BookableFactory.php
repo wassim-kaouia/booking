@@ -17,7 +17,7 @@ class BookableFactory extends Factory
         'Fancy Rooms',
     ];
     public function definition()
-    {
+    {   
         return [
             'title' => $this->faker->city . ' ' . Arr::random($this->suffix),
             'description' => $this->faker->text(),
