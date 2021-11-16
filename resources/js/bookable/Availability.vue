@@ -3,6 +3,13 @@
     <h6 class="text-uppercase font-weight-bolder text-muted">
       Check Availability
     </h6>
+
+    <span v-if="hasAvailability" class="text-success">
+      Available
+    </span>
+    <span v-if="hasNoAvailability" class="text-danger">
+      Not Available
+    </span>
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="from">Arrival:</label>
@@ -78,11 +85,11 @@ export default {
       return this.status == 200;
     },
     hasNoAvailability() {
-      return this.status == 400;
+      return this.status == 404;
     },
   },
   methods: {
-    //here we call endpoints to check about the availability - API Calls using axios
+    //here we call endpoints to check about the availability - API Call using axios
     check() {
       console.log("Fetching Api to bring Availability...");
       this.loading = true;

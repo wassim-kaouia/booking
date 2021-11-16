@@ -2125,6 +2125,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2144,11 +2151,11 @@ __webpack_require__.r(__webpack_exports__);
       return this.status == 200;
     },
     hasNoAvailability: function hasNoAvailability() {
-      return this.status == 400;
+      return this.status == 404;
     }
   },
   methods: {
-    //here we call endpoints to check about the availability - API Calls using axios
+    //here we call endpoints to check about the availability - API Call using axios
     check: function check() {
       var _this = this;
 
@@ -38598,6 +38605,18 @@ var render = function () {
     _c("h6", { staticClass: "text-uppercase font-weight-bolder text-muted" }, [
       _vm._v("\n    Check Availability\n  "),
     ]),
+    _vm._v(" "),
+    _vm.hasAvailability
+      ? _c("span", { staticClass: "text-success" }, [
+          _vm._v("\n    Available\n  "),
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.hasNoAvailability
+      ? _c("span", { staticClass: "text-danger" }, [
+          _vm._v("\n    Not Available\n  "),
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "form-row" }, [
       _c(
